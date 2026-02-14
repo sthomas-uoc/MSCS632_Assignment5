@@ -1,0 +1,9 @@
+| driver rider ride1 ride2 ride3 rides driver2 driverRides riderRides|"Setup drivers and riders"driver := Driver new name: 'Mark'; driverID: 1001; rating: 4.8.driver2 := Driver new name: 'Matthew'; driverID: 1002; rating: 4.9.rider := Rider new name: 'Philip'; riderID: 5001."Create rides from sub classes"ride1 := StandardRide new rideID: 1;	pickupLocation: 'Brooklyn';	dropoffLocation: 'Manhattan';	distance: 3.ride2 := PremiumRide new rideID: 2;	pickupLocation: 'Corbin';	dropoffLocation: 'Williamsburg';	distance: 20.ride3 := PremiumRide new rideID: 2;	pickupLocation: 'Bethesda';	dropoffLocation: 'Lincoln Memorial';	distance: 20."Perform rideshare actions"rider requestRide: ride1.rider requestRide: ride2.driver addRide: ride1.driver addRide: ride3."Call methods on actual classes"rides := OrderedCollection with: ride1 with: ride2.rides do: [:each |     Transcript show: each rideDetails;                show: ' - Calculated Fare: $';                show: each calculateFare asString; cr].
+
+Transcript cr."Driver getDriverInfo"
+Transcript show: 'getDriverInfo - ', driver getDriverInfo; cr.
+Transcript cr."Driver assignedRides"driverRides := driver assignedRides.driverRides do: [:each |     Transcript show: each rideDetails;                show: ' - Calculated Fare: $';                show: each calculateFare asString; cr].
+
+Transcript cr."Rider viewRides"riderRides := rider viewRides.riderRides do: [:each | 	Transcript show: '[', each class name, '] ';		   show: each rideDetails;                show: ' - Calculated Fare: $';                show: each calculateFare asString; cr].
+
+Transcript cr.
